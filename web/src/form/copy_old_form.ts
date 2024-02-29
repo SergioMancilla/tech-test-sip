@@ -1,6 +1,6 @@
 type Validator = (value: string) => boolean
 
-interface Input {
+export interface Input {
     type: string
     name: string
     label: string
@@ -10,22 +10,27 @@ interface Input {
     validators: Validator[]
 }
 
-interface Button {
+type Method = 'GET' | 'POST'
+
+export interface Button {
     type: 'submit' | 'text'
     text: string
     callback: () => {}
 }
 
-class Form {
+export class Form {
     #inputs: Input[]
 
-    #inputsHTML: HTMLLabelElement[]
+    #inputsHTML: HTMLLabelElement[] // This will be <inputs> inside their labels
     #button: HTMLButtonElement
     #form: HTMLFormElement
+    #method: Method
+    #action: string
     
     constructor (inputs: Input[], button: Button) {
         this.#inputs = inputs
 
+        // Create inputs and labels with the object given
         this.#inputsHTML = inputs.map((input: Input) => {
             const inputElem =  document.createElement('input')
             inputElem.setAttribute('type', input.type)
@@ -47,6 +52,7 @@ class Form {
         btnElem.onclick = button.callback
         this.#button = btnElem
 
+        // Create HTML Form to render subsequently
         const formElem = document.createElement('form')
         this.#inputsHTML.forEach((input) => {
             formElem.appendChild(input)
@@ -55,13 +61,17 @@ class Form {
         this.#form = formElem
     }
 
-    validateForm () {
+    validateForm (): boolean {
         const htmlInputs = this.#inputsHTML.map((label) => label.querySelector('input')!)
         
         return this.#inputs.every(({ validators, name }) => {
             const value = htmlInputs.find((input) => input.name === name)!.value
             return validators.every((validator) => validator(value))
         })
+    }
+
+    getForm (): HTMLFormElement{
+        return this.#form
     }
 
 
