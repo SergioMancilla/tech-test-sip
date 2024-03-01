@@ -1,7 +1,7 @@
-import { FormFactory } from '../dist/form/FormFactory'
-import { FormController } from '../dist/form/FormController'
-import { FormRenderer } from '../dist/form/FormRenderer'
-import { validators } from '../dist/utils/validators'
+import { FormFactory } from '../dist/form/FormFactory.js'
+import { FormController } from '../dist/form/FormController.js'
+import { FormRenderer } from '../dist/form/FormRenderer.js'
+import { validators } from '../dist/utils/validators.js'
 
 const formInputs = [
     {

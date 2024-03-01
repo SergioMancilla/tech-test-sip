@@ -43,7 +43,7 @@ export class FormRenderer {
     static #createSubmitButton(onSubmit, buttonText = 'Send') {
         const btnElem = document.createElement('button');
         btnElem.setAttribute('type', 'submit');
-        btnElem.classList.add('btn btn-primary');
+        btnElem.classList.add('btn');
         btnElem.textContent = buttonText;
         btnElem.onclick = onSubmit;
         return btnElem;

@@ -1,4 +1,4 @@
-import { Form } from './Form';
+import { Form } from './Form.js';
 export class FormFactory {
     static createForm(inputs, method, action, onSubmit) {
         return new Form(inputs, method, action, onSubmit);

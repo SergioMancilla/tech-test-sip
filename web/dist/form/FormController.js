@@ -1,4 +1,4 @@
-import { FormRepository } from "./FormRepository";
+import { FormRepository } from "./FormRepository.js";
 export class FormController {
     #repository;
     constructor() {
