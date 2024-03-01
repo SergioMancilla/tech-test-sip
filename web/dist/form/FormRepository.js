@@ -1,5 +1,4 @@
 export class FormRepository {
-    registerStudent () {
-
+    registerStudent() {
     }
 }

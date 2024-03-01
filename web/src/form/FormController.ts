@@ -8,3 +8,22 @@ FLUJO DE UN FORMULARIO:
 5. Repository maneja el envío al backend y las respuestas, que las retorna para que
    controller pueda hacer lo suyo
 */
+import { Form, SubmitAction } from "./Form";
+import { FormRepository } from "./FormRepository";
+
+export class FormController {
+
+   #repository: FormRepository
+
+   constructor () {
+      this.#repository = new FormRepository;
+   }
+
+   static submitForm () {
+      
+   }
+
+   static validateForm (form: Form, formElem: HTMLFormElement) {
+      return
+   }
+}

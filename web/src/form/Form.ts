@@ -11,7 +11,7 @@ export interface Input {
 type InputForValidate = Required<Pick<Input, 'value' | 'validators'>>
 
 type Validator = (value: string) => boolean
-export type SubmitAction = () => {}
+export type SubmitAction = () => void
 export type Method = 'GET' | 'POST'
 
 export class Form {

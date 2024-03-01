@@ -1,6 +1,6 @@
-import { Form, Input, Method, SubmitAction } from '@form/Form'
+import { Form, Input, SubmitAction } from './Form'
 
-class FormRenderer {
+export class FormRenderer {
     static renderForm(form: Form, formContainerId: string) {
         const formContainer = document.getElementById(formContainerId)
         if (!formContainer) throw new Error('Invalid container')
