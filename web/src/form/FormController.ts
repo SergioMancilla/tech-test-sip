@@ -8,8 +8,10 @@ FLUJO DE UN FORMULARIO:
 5. Repository maneja el envío al backend y las respuestas, que las retorna para que
    controller pueda hacer lo suyo
 */
-import { Form, SubmitAction } from "./Form";
-import { FormRepository } from "./FormRepository";
+import { Form, Input } from "./Form.js";
+import { FormRepository } from "./FormRepository.js";
+
+type InputForValidate = Required<Pick<Input, 'value' | 'validators'>>
 
 export class FormController {
 
@@ -19,11 +21,28 @@ export class FormController {
       this.#repository = new FormRepository;
    }
 
-   static submitForm () {
-      
+   static submitForm (form: Form) {
+      console.log('pepino')
+      const newInputs = FormController.getNewInputs(form)
+      FormController.validate(newInputs)
    }
 
-   static validateForm (form: Form, formElem: HTMLFormElement) {
-      return
+   static validate (newInputs: InputForValidate[]): boolean {
+      return newInputs.every(({ value, validators }) => {
+          validators.every((validator) => validator(value))
+      })
+   }
+
+   static getNewInputs (form: Form): InputForValidate[] {
+      const newInputs = new Array<InputForValidate>
+      form.getInputs().forEach(input => {
+         const htmlInput = <HTMLInputElement>document.getElementById(input.id)
+         newInputs.push({
+            value: htmlInput? htmlInput.value : '',
+            validators: input.validators
+         })
+      });
+      console.log(newInputs)
+      return newInputs
    }
 }

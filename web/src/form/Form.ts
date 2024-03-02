@@ -1,4 +1,5 @@
 export interface Input {
+    id: string,
     type: string
     name: string
     label: string
@@ -8,29 +9,23 @@ export interface Input {
     validators: Validator[]
 }
 
-type InputForValidate = Required<Pick<Input, 'value' | 'validators'>>
-
 type Validator = (value: string) => boolean
-export type SubmitAction = () => void
+export type SubmitAction = (...args: any[]) => void
 export type Method = 'GET' | 'POST'
 
 export class Form {
+    #title?: string
     #inputs: Input[]
     #method: Method
     #action: string
     #onSubmit: SubmitAction
     
-    constructor (inputs: Input[], method: Method, action: string, onSubmit: SubmitAction) {
+    constructor (inputs: Input[], method: Method, action: string, onSubmit: SubmitAction, title: string = '') {
         this.#inputs = inputs
         this.#method = method
         this.#action = action
         this.#onSubmit = onSubmit
-    }
-
-    validateForm (newInputs: InputForValidate[]): boolean {
-        return newInputs.every(({ value, validators }) => {
-            validators.every((validator) => validator(value))
-        })
+        this.#title = title
     }
 
     getInputs (): Input[] {
@@ -45,7 +40,11 @@ export class Form {
         return this.#action
     }
 
-    getSubitAction (): SubmitAction {
-        return this.#onSubmit
+    getTitle (): string | undefined {
+        return this.#title || undefined
+    }
+
+    runSubmitAction (...args: any[]): void {
+        return this.#onSubmit(args)
     }
 }

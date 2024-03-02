@@ -5,47 +5,44 @@ export class FormRenderer {
             throw new Error('Invalid container');
         const formElem = FormRenderer.#createHtmlForm(form);
         formContainer.appendChild(formElem);
+        const submitButton = document.getElementById('submit-button');
+        submitButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            form.runSubmitAction(form);
+        });
     }
     static #createHtmlForm(form) {
         const formElem = document.createElement('form');
         formElem.setAttribute('action', form.getAction());
         formElem.setAttribute('method', form.getMethod());
         const htmlInputs = FormRenderer.#createHtmlInputs(form.getInputs());
-        const htmlButton = FormRenderer.#createSubmitButton(form.getSubitAction(), 'Create');
+        const htmlButton = FormRenderer.#createSubmitButton('Create');
         const inputsContainer = document.createElement('div');
         inputsContainer.classList.add('inputs-container');
         htmlInputs.forEach(input => {
-            inputsContainer.appendChild(input);
+            inputsContainer.innerHTML += input;
         });
+        if (form.getTitle)
+            formElem.innerHTML += `<h2>${form.getTitle()}</h2>`;
         formElem.appendChild(inputsContainer);
-        formElem.appendChild(htmlButton);
+        formElem.innerHTML += htmlButton;
         return formElem;
     }
     static #createHtmlInputs(inputs) {
         return inputs.map((input) => {
-            const inputElem = document.createElement('input');
-            // Creating HTML inputs through attributes in Input objects
-            inputElem.setAttribute('type', input.type);
-            inputElem.setAttribute('name', input.name);
-            inputElem.classList.add('form-control');
-            if (input.placeholder)
-                inputElem.setAttribute('placeholder', input.placeholder);
-            if (input.title)
-                inputElem.setAttribute('title', input.title);
-            if (input.value)
-                inputElem.setAttribute('value', input.value);
-            const label = document.createElement('label');
-            label.textContent = input.label;
-            label.appendChild(inputElem);
-            return label;
+            return `
+            <label>
+                ${input.label}
+                <input type=${input.type} name=${input.name} class="form-control" placeholder=${input.placeholder ?? ''} title=${input.title ?? ''} title=${input.value ?? ''}>
+            </label>
+            `;
         });
     }
-    static #createSubmitButton(onSubmit, buttonText = 'Send') {
-        const btnElem = document.createElement('button');
-        btnElem.setAttribute('type', 'submit');
-        btnElem.classList.add('btn');
-        btnElem.textContent = buttonText;
-        btnElem.onclick = onSubmit;
-        return btnElem;
+    static #createSubmitButton(buttonText = 'Send') {
+        return `
+            <button id="submit-button" type="submit" class="btn btn-primary">
+                ${buttonText}
+            </button>
+        `;
     }
 }

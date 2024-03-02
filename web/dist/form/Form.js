@@ -1,18 +1,15 @@
 export class Form {
+    #title;
     #inputs;
     #method;
     #action;
     #onSubmit;
-    constructor(inputs, method, action, onSubmit) {
+    constructor(inputs, method, action, onSubmit, title = '') {
         this.#inputs = inputs;
         this.#method = method;
         this.#action = action;
         this.#onSubmit = onSubmit;
-    }
-    validateForm(newInputs) {
-        return newInputs.every(({ value, validators }) => {
-            validators.every((validator) => validator(value));
-        });
+        this.#title = title;
     }
     getInputs() {
         return this.#inputs;
@@ -23,7 +20,10 @@ export class Form {
     getAction() {
         return this.#action;
     }
-    getSubitAction() {
-        return this.#onSubmit;
+    getTitle() {
+        return this.#title || undefined;
+    }
+    runSubmitAction(...args) {
+        return this.#onSubmit(args);
     }
 }
