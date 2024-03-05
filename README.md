@@ -1,6 +1,8 @@
 # Steps for the project setup
 
-- Ingresar a la carpeta web y executar npm install
-- Crear un ambiente virtual en la raíz del proyecto con una versión de Python superior a la 3.7 usando el comando python -m venv sip_students_env
-- Ejecutar el comando sip_students_env\scripts\activate para activar el ambiente virtual
-- Ejecutar pip install -r requirements.txt
+- Create a virtual env in the root of the project with a Python version upper to 3.7, using the command `python -m venv sip_students_env`. This is for simplify the development experience with Python dependencies
+- Run `sip_students_env\scripts\activate` to activate the virtual env
+- Execute `pip install -r requirements.txt`
+- Join the folder 'web' located in the root of the project and run `npm run dev`
+
+Once development has finished, all this proccess should be automated in a Docker file
