@@ -9,7 +9,7 @@ export interface Input {
     validators: Validator[]
 }
 
-type Validator = (value: string) => boolean
+type Validator = (value: string) => {val: boolean, msg:string}
 export type SubmitAction = (...args: any[]) => void
 export type Method = 'GET' | 'POST'
 
@@ -34,7 +34,7 @@ export class Form {
 
     getMethod (): Method {
         return this.#method
-    }
+    }   
 
     getAction (): string {
         return this.#action
@@ -44,7 +44,8 @@ export class Form {
         return this.#title || undefined
     }
 
-    runSubmitAction (...args: any[]): void {
-        return this.#onSubmit(args)
+    runSubmitAction (): void {
+        // A submit function will require the Form instance
+        return this.#onSubmit(this)
     }
 }

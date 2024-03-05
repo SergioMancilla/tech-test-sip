@@ -1,7 +1,7 @@
 import { FormFactory } from './FormFactory.js';
 import { FormController } from './FormController.js';
 import { FormRenderer } from './FormRenderer.js';
-import { validators } from '@utils/validators.js';
+import { validators } from '../utils/validators.js';
 export const studentFormInputs = [
     {
         id: 'name-input',
@@ -9,7 +9,8 @@ export const studentFormInputs = [
         name: 'fullname',
         label: 'Full name',
         placeholder: 'George',
-        validators: [validators.required]
+        validators: [validators.required],
+        value: 'Sergio'
     },
     {
         id: 'lastname-input',
@@ -17,14 +18,16 @@ export const studentFormInputs = [
         name: 'lastnames',
         label: 'Last names',
         placeholder: 'Washington',
-        validators: [validators.required]
+        validators: [validators.required],
+        value: 'Mancilla'
     },
     {
         id: 'date-input',
         type: 'date',
         name: 'birth_date',
         label: 'Birth date',
-        validators: [validators.required]
+        validators: [validators.required, validators.beforeToday],
+        value: '2000-09-23'
     },
     {
         id: 'id_number-input',
@@ -32,7 +35,8 @@ export const studentFormInputs = [
         name: 'id_number',
         label: 'Id number',
         placeholder: '123456789',
-        validators: [validators.required]
+        validators: [validators.required],
+        value: '1010000777'
     },
     {
         id: 'phone-input',
@@ -40,7 +44,8 @@ export const studentFormInputs = [
         name: 'phone',
         label: 'Phone number',
         placeholder: '123456789',
-        validators: [validators.phone]
+        validators: [validators.required, validators.phone],
+        value: '3015989015'
     },
 ];
 export function makeRegisterStudentsForm() {

@@ -1,3 +1,4 @@
+import { validators } from '../utils/validators.js'
 import { Form, Input, SubmitAction } from './Form.js'
 
 export class FormRenderer {
@@ -11,8 +12,14 @@ export class FormRenderer {
         const submitButton = document.getElementById('submit-button');
         submitButton!.addEventListener('click', (event) => {
             event.preventDefault()
-            form.runSubmitAction(form)
+            form.runSubmitAction()
         });
+
+        form.getInputs().forEach((input) => {
+            document.getElementById(input.id)?.addEventListener('change', () => {
+                FormRenderer.removeErrorMsg(input.id)
+            })
+        })
     }
 
     static #createHtmlForm (form: Form): HTMLFormElement {
@@ -32,15 +39,17 @@ export class FormRenderer {
         if (form.getTitle) formElem.innerHTML += `<h2>${form.getTitle()}</h2>`
         formElem.appendChild(inputsContainer)
         formElem.innerHTML += htmlButton
+        formElem.innerHTML += '<span class="text-sm">Fields with * are required</span>'
         return formElem
     }
 
     static #createHtmlInputs (inputs: Input[]): string[] {
         return inputs.map((input) => {
             return `
-            <label>
-                ${input.label}
-                <input type=${input.type} name=${input.name} class="form-control" placeholder=${input.placeholder?? ''} title=${input.title?? ''} title=${input.value?? ''}>
+            <label title=${input.title?? ''} >
+                ${input.label} ${input.validators.includes(validators.required)? '*' : ''}
+                <input id=${input.id} type=${input.type} name=${input.name} class="form-control" placeholder=${input.placeholder?? ''} title='${input.title?? ''}' value=${input.value?? ''} >
+                <p class="error-msg text-danger text-center"></p>
             </label>
             `
         })
@@ -52,5 +61,29 @@ export class FormRenderer {
                 ${buttonText}
             </button>
         `;
+    }
+
+    static showErrorMsg (elemId: string, msg: string) {
+        const input = document.getElementById(elemId)
+        const errorElement = input?.nextElementSibling
+
+        if (errorElement && errorElement.classList.contains('error-msg')) {
+            errorElement.textContent = msg
+        }
+    }
+
+    static removeErrorMsg (elemId: string) {
+        const input = document.getElementById(elemId)
+        const errorElement = input?.nextElementSibling
+
+        if (errorElement && errorElement.classList.contains('error-msg')) {
+            errorElement.textContent = ''
+        }
+    }
+
+    static removeAllErrorMsg () {
+        document.querySelectorAll('.error-msg').forEach((element) => {
+            element.textContent = ''
+        })
     }
 }

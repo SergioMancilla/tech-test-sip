@@ -1,29 +1,40 @@
+import { FormRenderer } from "./FormRenderer.js";
 import { FormRepository } from "./FormRepository.js";
 export class FormController {
-    #repository;
     constructor() {
-        this.#repository = new FormRepository;
     }
     static submitForm(form) {
-        console.log('pepino');
+        FormRenderer.removeAllErrorMsg();
+        const formDTO = {};
         const newInputs = FormController.getNewInputs(form);
-        FormController.validate(newInputs);
+        if (!FormController.validate(newInputs))
+            return;
+        newInputs.forEach((input) => {
+            formDTO[input.name] = input.value;
+        });
+        FormRepository.registerStudent(formDTO);
+        // .then((res) => {return res.json()})
+        // .then((res) => {
+        //    console.log(res)
+        // })
     }
     static validate(newInputs) {
-        return newInputs.every(({ value, validators }) => {
-            validators.every((validator) => validator(value));
+        const fields = newInputs.map(({ id, value, validators }) => {
+            return validators.every((validator) => {
+                const { val, msg } = validator(value);
+                if (!val)
+                    FormRenderer.showErrorMsg(id, msg);
+                return val;
+            });
         });
+        return !fields.includes(false);
     }
     static getNewInputs(form) {
         const newInputs = new Array;
         form.getInputs().forEach(input => {
             const htmlInput = document.getElementById(input.id);
-            newInputs.push({
-                value: htmlInput ? htmlInput.value : '',
-                validators: input.validators
-            });
+            newInputs.push({ value: htmlInput ? htmlInput.value : '', ...input });
         });
-        console.log(newInputs);
         return newInputs;
     }
 }

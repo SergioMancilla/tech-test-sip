@@ -9,40 +9,53 @@ FLUJO DE UN FORMULARIO:
    controller pueda hacer lo suyo
 */
 import { Form, Input } from "./Form.js";
+import { FormRenderer } from "./FormRenderer.js";
 import { FormRepository } from "./FormRepository.js";
 
-type InputForValidate = Required<Pick<Input, 'value' | 'validators'>>
+type InputForValidate = Required<Pick<Input, 'name' | 'id' | 'value' | 'validators'>>
 
 export class FormController {
 
-   #repository: FormRepository
-
    constructor () {
-      this.#repository = new FormRepository;
+      
    }
 
    static submitForm (form: Form) {
-      console.log('pepino')
+      FormRenderer.removeAllErrorMsg()
+
+      const formDTO: { [key: string]: string } = {}
       const newInputs = FormController.getNewInputs(form)
-      FormController.validate(newInputs)
+      if (!FormController.validate(newInputs)) return
+
+      newInputs.forEach((input) => {
+         formDTO[input.name] = input.value
+      })
+
+      FormRepository.registerStudent(formDTO)
+      // .then((res) => {return res.json()})
+      // .then((res) => {
+      //    console.log(res)
+      // })
    }
 
    static validate (newInputs: InputForValidate[]): boolean {
-      return newInputs.every(({ value, validators }) => {
-          validators.every((validator) => validator(value))
+      const fields = newInputs.map(({ id, value, validators }) => {
+         return validators.every((validator) => {
+            const {val, msg} = validator(value)
+            if (!val) FormRenderer.showErrorMsg(id, msg)
+            return val
+         })
       })
+      
+      return !fields.includes(false)
    }
 
    static getNewInputs (form: Form): InputForValidate[] {
       const newInputs = new Array<InputForValidate>
       form.getInputs().forEach(input => {
          const htmlInput = <HTMLInputElement>document.getElementById(input.id)
-         newInputs.push({
-            value: htmlInput? htmlInput.value : '',
-            validators: input.validators
-         })
+         newInputs.push({value: htmlInput? htmlInput.value : '', ...input})
       });
-      console.log(newInputs)
       return newInputs
    }
 }

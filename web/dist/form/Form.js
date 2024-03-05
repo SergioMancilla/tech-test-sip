@@ -23,7 +23,8 @@ export class Form {
     getTitle() {
         return this.#title || undefined;
     }
-    runSubmitAction(...args) {
-        return this.#onSubmit(args);
+    runSubmitAction() {
+        // A submit function will require the Form instance
+        return this.#onSubmit(this);
     }
 }
