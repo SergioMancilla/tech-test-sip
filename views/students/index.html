@@ -1,0 +1,24 @@
+{{ extend 'layout.html' }}
+
+{{ block head }}
+<title>Register students</title>
+{{ end head }}
+
+
+<div id="form-container" class="form-container">
+
+</div>
+
+{{ block paje_js }}
+<script type="module" src="{{=URL('static', 'dist/form/index.js')}}"></script>
+{{ end paje_js }}
+
+<style>
+    .form-container {
+        margin: 0 auto;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
