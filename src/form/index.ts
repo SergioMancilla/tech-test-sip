@@ -12,7 +12,7 @@ export const studentFormInputs: Input[] = [
         label: 'Full name',
         placeholder: 'George',
         validators: [validators.required],
-        value: 'Sergio'
+        value: ''
     },
     {
         id: 'lastname-input',
@@ -21,7 +21,7 @@ export const studentFormInputs: Input[] = [
         label: 'Last names',
         placeholder: 'Washington',
         validators: [validators.required],
-        value: 'Mancilla'
+        value: ''
     },
     {
         id: 'date-input',
@@ -29,7 +29,7 @@ export const studentFormInputs: Input[] = [
         name: 'birth_date',
         label: 'Birth date',
         validators: [validators.required, validators.beforeToday],
-        value: '2000-09-23'
+        value: ''
     },
     {
         id: 'id_number-input',
@@ -38,7 +38,7 @@ export const studentFormInputs: Input[] = [
         label: 'Id number',
         placeholder: '123456789',
         validators: [validators.required],
-        value: '1010000777'
+        value: ''
     },
     {
         id: 'phone-input',
@@ -47,7 +47,7 @@ export const studentFormInputs: Input[] = [
         label: 'Phone number',
         placeholder: '123456789',
         validators: [validators.required, validators.phone],
-        value: '3015989015'
+        value: ''
     },
 ]
 
