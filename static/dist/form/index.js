@@ -10,7 +10,7 @@ export const studentFormInputs = [
         label: 'Full name',
         placeholder: 'George',
         validators: [validators.required],
-        value: ''
+        value: 'Sergio'
     },
     {
         id: 'lastname-input',
@@ -19,7 +19,7 @@ export const studentFormInputs = [
         label: 'Last names',
         placeholder: 'Washington',
         validators: [validators.required],
-        value: ''
+        value: 'Mancilla'
     },
     {
         id: 'date-input',
@@ -27,7 +27,7 @@ export const studentFormInputs = [
         name: 'birth_date',
         label: 'Birth date',
         validators: [validators.required, validators.beforeToday],
-        value: ''
+        value: '2000-09-23'
     },
     {
         id: 'id_number-input',
@@ -36,7 +36,7 @@ export const studentFormInputs = [
         label: 'Id number',
         placeholder: '123456789',
         validators: [validators.required],
-        value: ''
+        value: '1010000777'
     },
     {
         id: 'phone-input',
@@ -45,7 +45,7 @@ export const studentFormInputs = [
         label: 'Phone number',
         placeholder: '123456789',
         validators: [validators.required, validators.phone],
-        value: ''
+        value: '3015989015'
     },
 ];
 export function makeRegisterStudentsForm() {

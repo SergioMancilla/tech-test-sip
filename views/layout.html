@@ -19,6 +19,11 @@
          http://google.com/webmasters -->
     <meta name="google-site-verification" content="">
     <!-- include stylesheets -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="{{=URL('static','css/bootstrap.min.css')}}"/>
+    <link rel="stylesheet" href="{{=URL('static','css/web2py-bootstrap4.css')}}"/>
+
+    <!-- Own stylesheets -->
     <link rel="shortcut icon" href="{{=URL('static','images/favicon.ico')}}" type="image/x-icon">
     <link rel="apple-touch-icon" href="{{=URL('static','images/favicon.png')}}">
     <link rel="stylesheet" href="{{=URL('static', 'css/style.css')}}">
@@ -46,12 +51,14 @@
             <a class="menu-item__link" href="{{=URL('students', 'index')}}">Register student</a>
           </li>
           <li class="menu-item">
-            <a class="menu-item__link" href="{{=URL('attendance', 'index')}}">Attendancet</a>
+            <a class="menu-item__link" href="{{=URL('attendance', 'index')}}">Attendance</a>
+          </li>
+          <li class="menu-item">    
+            <a class="menu-item__link" href="{{=URL('classrooms', 'index')}}">classrooms</a>
           </li>
           <li class="menu-item">
-            <a class="menu-item__link" href="{{=URL('classrooms', 'index')}}">classrooms and subjects</a>
+            <a class="menu-item__link" href="{{=URL('subjects', 'index')}}">Subjects</a>
           </li>
-        </ul>
       </nav>
     </header>
 

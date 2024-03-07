@@ -1,2 +1,8 @@
+from applications.sip_students.modules.models.Classroom import Classroom
+
 def index():
-    return dict(message="hello from students.py")
+    classroom = Classroom()
+    form_model = classroom.getModel()
+
+    grid = SQLFORM.grid(form_model, user_signature=False)
+    return dict(grid=grid)
