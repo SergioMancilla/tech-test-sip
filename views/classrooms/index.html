@@ -2,9 +2,16 @@
 
 {{ block head }}
 <title>Classrooms and subjects</title>
+<link rel="stylesheet" href="{{ =URL('static', 'css/grid.css') }}">
 {{ end head }}
 
-Classrooms
+<section class="grid-section">
+    <h1 class="grid-title">Manage classrooms</h1>
+    <div class="grid-container">
+        {{=grid}}
+    </div>
+</section>
+
 
 {{ block paje_js }}
 
