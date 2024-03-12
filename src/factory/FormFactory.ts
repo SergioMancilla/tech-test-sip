@@ -1,4 +1,4 @@
-import { Form, Input, Method, SubmitAction  } from './Form.js'
+import { Form, Input, Method, SubmitAction  } from '../models/Form.js'
 
 export class FormFactory {
     static createForm(inputs: Input[], method: Method, action: string, onSubmit: SubmitAction, title?: string): Form {

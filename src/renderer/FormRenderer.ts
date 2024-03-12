@@ -1,5 +1,5 @@
 import { validators } from '../utils/validators.js'
-import { Form, Input, SubmitAction } from './Form.js'
+import { Form, Input, SubmitAction } from '../models/Form.js'
 
 export class FormRenderer {
     static renderForm(form: Form, formContainerId: string) {

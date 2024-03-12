@@ -8,9 +8,9 @@ FLUJO DE UN FORMULARIO:
 5. Repository maneja el envío al backend y las respuestas, que las retorna para que
    controller pueda hacer lo suyo
 */
-import { Form, Input } from "./Form.js";
-import { FormRenderer } from "./FormRenderer.js";
-import { FormRepository } from "./FormRepository.js";
+import { Form, Input } from "../models/Form.js";
+import { FormRenderer } from "../renderer/FormRenderer.js";
+import { FormRepository } from "../repository/FormRepository.js";
 
 type InputForValidate = Required<Pick<Input, 'name' | 'id' | 'value' | 'validators'>>
 

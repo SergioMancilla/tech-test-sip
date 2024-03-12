@@ -1,8 +1,8 @@
-import { FormFactory } from './FormFactory.js'
-import { FormController } from './FormController.js'
-import { FormRenderer } from './FormRenderer.js'
-import { validators } from '../utils/validators.js'
-import { Input } from './Form.js'
+import { FormFactory } from './factory/FormFactory.js'
+import { FormController } from './controllers/FormController.js'
+import { FormRenderer } from './renderer/FormRenderer.js'
+import { validators } from './utils/validators.js'
+import { Input } from './models/Form.js'
 
 export const studentFormInputs: Input[] = [
     {

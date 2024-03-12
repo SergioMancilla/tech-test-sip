@@ -1,22 +1,17 @@
+from applications.sip_students.modules.repository.StudentRepository import StudentRepository
 from applications.sip_students.modules.models.Base import Base
-import gluon.dal as dal
 
 class Student:
     table_name = 'students'
+    obj = {}
 
-    def __init__ (self):
+    def __init__ (self, name, last_name, birth_date, id_number, phone):
         Base.__init__(self)
+        self.obj.name = name
+        self.obj.last_name = last_name
+        self.obj.birth_date = birth_date
+        self.obj.id_number = id_number
+        self.obj.phone = phone
 
-        self.table = self.db.define_table(self.table_name,
-            dal.Field('name', 'string'),
-            dal.Field('last_name', 'string'),
-            dal.Field('birth_date', 'date'),
-            dal.Field('id_number', 'string'),
-            dal.Field('phone', 'string'),
-            format='%(nombre)s'
-        )
-
-    def get_model(self):
-        '''Returns the DB student object for use in SQLFORM.grid'''
-        return self.table
-    
+    def save(self) -> None:
+        StudentRepository.save_in_bd(self.obj)
