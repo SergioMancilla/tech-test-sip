@@ -1,17 +1,9 @@
-from applications.sip_students.modules.repository.StudentRepository import StudentRepository
-from applications.sip_students.modules.models.Base import Base
+from datetime import date
 
 class Student:
-    table_name = 'students'
-    obj = {}
-
-    def __init__ (self, name, last_name, birth_date, id_number, phone):
-        Base.__init__(self)
-        self.obj.name = name
-        self.obj.last_name = last_name
-        self.obj.birth_date = birth_date
-        self.obj.id_number = id_number
-        self.obj.phone = phone
-
-    def save(self) -> None:
-        StudentRepository.save_in_bd(self.obj)
+    def __init__ (self, name: str, last_name: str, birth_date: date, id_number: str, phone: str):
+        self.name = name
+        self.last_name = last_name
+        self.birth_date = birth_date
+        self.id_number = id_number
+        self.phone = phone

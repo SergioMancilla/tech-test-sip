@@ -21,6 +21,7 @@ export class FormRepository {
             console.log(data);
         })
         .catch(error => {
+            console.log(error)
             console.error('Error al obtener los datos:');
         });
 

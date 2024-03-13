@@ -7,7 +7,7 @@ class Classroom:
     def __init__ (self):
         Base.__init__(self)
 
-        self.table_for_show = self.db.define_table(self.table_name,
+        self.table_structure = self.db.define_table(self.table_name,
             dal.Field('name', 'string'),
             dal.Field('description', 'string'),
             dal.Field('monitor', 'string'),
@@ -16,5 +16,5 @@ class Classroom:
 
     def get_model(self):
         '''Returns the DB classroom object for use in SQLFORM.grid'''
-        return self.table_for_show
+        return self.table_structure
     
