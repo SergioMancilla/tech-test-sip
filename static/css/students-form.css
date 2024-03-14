@@ -70,3 +70,7 @@ label {
 .text-sm {
     font-size: 14px;
 }
+
+.request-status-info {
+    display: none;
+}

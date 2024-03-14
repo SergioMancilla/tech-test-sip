@@ -12,7 +12,21 @@ export class FormController {
         newInputs.forEach((input) => {
             formDTO[input.name] = input.value;
         });
-        FormRepository.registerStudent(formDTO);
+        FormController.manageSentService(formDTO);
+    }
+    static manageSentService(formDTO) {
+        FormRepository.registerStudent(formDTO)
+            .then(success => {
+            if (success) {
+                FormRenderer.showsStatusInfo(true, 'Student saved successfully');
+            }
+            else {
+                FormRenderer.showsStatusInfo(false, 'The server refused the data');
+            }
+        })
+            .catch(error => {
+            FormRenderer.showsStatusInfo(false, 'There was an error in the request');
+        });
     }
     static validate(newInputs) {
         const fields = newInputs.map(({ id, value, validators }) => {

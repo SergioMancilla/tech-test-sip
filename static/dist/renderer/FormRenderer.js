@@ -30,6 +30,7 @@ export class FormRenderer {
         });
         if (form.getTitle)
             formElem.innerHTML += `<h2>${form.getTitle()}</h2>`;
+        formElem.innerHTML += `<span id="request-status-info" class="request-status-info"></span>`;
         formElem.appendChild(inputsContainer);
         formElem.innerHTML += htmlButton;
         formElem.innerHTML += '<span class="text-sm">Fields with * are required</span>';
@@ -71,5 +72,14 @@ export class FormRenderer {
         document.querySelectorAll('.error-msg').forEach((element) => {
             element.textContent = '';
         });
+    }
+    static showsStatusInfo(success, msg) {
+        const infoElem = document.getElementById('request-status-info');
+        infoElem.innerHTML = msg;
+        infoElem.style.display = 'block';
+        infoElem.style.color = success ? 'green' : 'red';
+        setTimeout(() => {
+            infoElem.style.display = 'none';
+        }, 1500);
     }
 }

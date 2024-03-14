@@ -1,13 +1,3 @@
-/*
-FLUJO DE UN FORMULARIO:
-1. Model define la estructura del formulario
-2. Se crea el formulario en el Factory usando el Model
-3. Renderer lo renderiza
-4. Controller se encarga de enviar el formulario, validar los datos, etc, le delega
-   la responsabilidad de enviar al backend a Repository
-5. Repository maneja el envío al backend y las respuestas, que las retorna para que
-   controller pueda hacer lo suyo
-*/
 import { Form, Input } from "../models/Form.js";
 import { FormRenderer } from "../renderer/FormRenderer.js";
 import { FormRepository } from "../repository/FormRepository.js";
@@ -31,7 +21,21 @@ export class FormController {
          formDTO[input.name] = input.value
       })
 
+      FormController.manageSentService(formDTO)
+   }
+
+   static manageSentService (formDTO: { [key: string]: string }) {
       FormRepository.registerStudent(formDTO)
+      .then(success => {
+         if (success) {
+            FormRenderer.showsStatusInfo(true, 'Student saved successfully')
+         } else {
+            FormRenderer.showsStatusInfo(false, 'The server refused the data')
+         }
+      })
+      .catch(error => {
+         FormRenderer.showsStatusInfo(false, 'There was an error in the request')
+      })
    }
 
    static validate (newInputs: InputForValidate[]): boolean {
