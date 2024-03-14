@@ -50,9 +50,9 @@ export class FormController {
       const newInputs = new Array<InputForValidate>
       form.getInputs().forEach(input => {
          const htmlInput = <HTMLInputElement>document.getElementById(input.id)
-         newInputs.push({value: htmlInput? htmlInput.value : '', ...input})
+         const newValue = htmlInput.value || ''
+         newInputs.push({...input, value: newValue})
       });
-      console.log(newInputs)
       return newInputs
    }
 }
