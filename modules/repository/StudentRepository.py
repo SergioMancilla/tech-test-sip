@@ -15,7 +15,7 @@ class StudentRepository(BaseRepository):
             Field('name', 'string'),
             Field('last_name', 'string'),
             Field('birth_date', 'date'),
-            Field('id_number', 'string'),
+            Field('id_number', 'string', unique=True),
             Field('phone', 'string'),
             format='%(name)s'
         )

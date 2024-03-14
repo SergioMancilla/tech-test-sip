@@ -4,6 +4,8 @@ from gluon import DAL
 class BaseRepository:
     ''' Class for connecting with the DB '''
 
+    _instance = None
+
     config = AppConfig(reload=True)
 
     def __init__(self):
