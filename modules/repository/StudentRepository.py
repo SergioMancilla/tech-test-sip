@@ -1,7 +1,7 @@
+from gluon.dal import Field
+
 from applications.sip_students.modules.models.Student import Student
 from applications.sip_students.modules.repository.BaseRepository import BaseRepository
-
-from gluon.dal import Field
 
 class StudentRepository(BaseRepository):
 

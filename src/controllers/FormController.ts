@@ -52,6 +52,7 @@ export class FormController {
          const htmlInput = <HTMLInputElement>document.getElementById(input.id)
          newInputs.push({value: htmlInput? htmlInput.value : '', ...input})
       });
+      console.log(newInputs)
       return newInputs
    }
 }

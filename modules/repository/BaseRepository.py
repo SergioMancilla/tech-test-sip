@@ -7,10 +7,9 @@ class BaseRepository:
     config = AppConfig(reload=True)
 
     def __init__(self):
-        conn_string = self.get_db_connection()
-        self.db = DAL(conn_string, lazy_tables=True, migrate=False, migrate_enabled=False, pool_size=self.config.get('database.pool_size'))
+        conn_string = self.get_db_connection_string()
+        self.db = DAL(conn_string, migrate=False, migrate_enabled=False, pool_size=self.config.get('database.pool_size'))
 
-
-    def get_db_connection(self):
+    def get_db_connection_string(self):
         ''' Get the connection string for database '''
         return self.config.get('database.conn_string')

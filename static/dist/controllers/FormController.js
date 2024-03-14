@@ -1,4 +1,5 @@
 import { FormRenderer } from "../renderer/FormRenderer.js";
+import { FormRepository } from "../repository/FormRepository.js";
 export class FormController {
     constructor() {
     }
@@ -11,6 +12,7 @@ export class FormController {
         newInputs.forEach((input) => {
             formDTO[input.name] = input.value;
         });
+        FormRepository.registerStudent(formDTO);
     }
     static validate(newInputs) {
         const fields = newInputs.map(({ id, value, validators }) => {
