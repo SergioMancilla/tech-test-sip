@@ -20,3 +20,7 @@ class ClassroomRepository(BaseRepository):
     def get_model(self):
         ''' Return the table structure for SQLForm or other purposes '''
         return self.table
+    
+    def get_db_object(self):
+        ''' Return database instance for classrooms '''
+        return self.db[self.__tablename__]

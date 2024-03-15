@@ -1,0 +1,18 @@
+{{ extend 'layout.html' }}
+
+{{ block head }}
+<title>Classrooms and subjects</title>
+<link rel="stylesheet" href="{{ =URL('static', 'css/grid.css') }}">
+{{ end head }}
+
+<section class="grid-section">
+    <h1 class="grid-title">Manage students</h1>
+    <div class="grid-container">
+        {{=grid}}
+    </div>
+</section>
+
+
+{{ block paje_js }}
+
+{{ end paje_js }}

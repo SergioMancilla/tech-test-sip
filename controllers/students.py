@@ -9,10 +9,17 @@ def index():
     ''' Return students form view '''
     return dict()
 
+def edit_student():
+    ''' Allows to edit a student, or asigning a course '''
+    student_repository = StudentRepository()
+    form_model = student_repository.get_model()
+
+    grid = SQLFORM.grid(form_model, user_signature=False, orderby='name', sortable=True, paginate=10, csv=False, create=False)
+    return dict(grid=grid)
+
 def attendance():
     ''' TODO register attendance '''
-    if not request.env.request_method == 'GET': raise HTTP(403)
-    return response.json({'status':'success', 'email':auth.user.email})
+    return dict()
 
 def save_student():
     ''' Persist student into database '''
