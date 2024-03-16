@@ -2,8 +2,16 @@
 
 {{ block head }}
 <title>Attendance</title>
+<link rel="stylesheet" href="{{ =URL('static', 'css/grid.css') }}">
+{{include 'web2py_ajax.html'}}
 {{ end head }}
 
+<section class="grid-section">
+    <h1 class="grid-title">Check students attendance</h1>
+    <div class="grid-container">
+        {{ =attendance_component }}
+    </div>
+</section>
 
 
 {{ block paje_js }}

@@ -1,5 +1,9 @@
+from typing import List
+
 from gluon.dal import Field
 
+from applications.sip_students.modules.models.Student import Student
+from applications.sip_students.modules.models.Classroom import Classroom
 from applications.sip_students.modules.repository.BaseRepository import BaseRepository
 
 class ClassroomRepository(BaseRepository):
@@ -24,3 +28,11 @@ class ClassroomRepository(BaseRepository):
     def get_db_object(self):
         ''' Return database instance for classrooms '''
         return self.db[self.__tablename__]
+    
+    def get_all_classrooms(self):
+        ''' Fetch all classrooms '''
+        table = self.get_db_object()
+        registers = self.db(table).select()
+        return registers
+
+

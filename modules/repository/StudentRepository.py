@@ -12,7 +12,6 @@ class StudentRepository(BaseRepository):
     def __init__(self):
         BaseRepository.__init__(self)
 
-        # classroom_table = self.get_classroom_model()
         classroom_table = self.get_classroom_model()
 
         self.table = self.db.define_table(
@@ -35,7 +34,7 @@ class StudentRepository(BaseRepository):
         return self.table
 
     def save(self, student: Student) -> None:
-        ''' Save a student in BD '''
+        ''' Store a student in BD '''
 
         classroom_id = student.classroom.id if student.classroom else None
 
@@ -48,9 +47,15 @@ class StudentRepository(BaseRepository):
             classroom_id = classroom_id
         )
 
-    def add_classroom_to_student(self, classroom: Classroom) -> None:
-        ''' Add a classroom to an existing user '''
-        self.db(self.db[self.__tablename__].id == self.id).update(
-            classroom_id = classroom.id
-        )
+    def get_db_object(self):
+        ''' Return database instance for classrooms '''
+        return self.db[self.__tablename__]
+
+    def get_students_by_classroom(self, classroom_id: int):
+        ''' Return the list of students for a given classroom '''
+
+        students_table = self.get_db_object()
+        query = students_table.classroom_id == classroom_id
+        students = self.db(query).select()
+        return students
         
