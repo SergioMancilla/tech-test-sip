@@ -30,7 +30,7 @@ class AttendanceRepository(BaseRepository):
         ''' Return database instance for classrooms '''
         return self.db[self.__tablename__]
     
-    def get_attendance_list(self):
+    def get_attendance_list(self) -> list:
         ''' Return the full list for attendance. This allows to render the attendance by default values later '''
         table = self.get_db_object()
         registers = self.db(table).select()

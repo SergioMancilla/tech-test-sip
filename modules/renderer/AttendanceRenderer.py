@@ -17,7 +17,7 @@ class AttendanceRenderer:
         self.student_repository = StudentRepository()
         self.subject_repository = SubjectRepository()
         # Variable for render the current value options
-        self.current_attendance = AttendanceRepository()
+        self.attendance_repository = AttendanceRepository()
 
     def render_attendance_component(self):
         ''' Return the render component for showing the students attendance '''
@@ -40,6 +40,9 @@ class AttendanceRenderer:
         
     def render_classroom(self, classroom: Row):
         ''' Render a specific classroom with all their students '''
+
+        selected_attendance = self.attendance_repository.get_attendance_list()
+
         subjects = self.subject_repository.get_all_subjects()
         students =  self.student_repository.get_students_by_classroom(classroom.id)
 
@@ -62,6 +65,7 @@ class AttendanceRenderer:
                                 OPTION('Yes', _value=AttendanceEnum.ATTENDED.value),
                                 OPTION("No", _value=AttendanceEnum.NOT_ATTENDED.value),
                                 _value = '2',
+                                value = self.get_selected_value(selected_attendance, student.id, subject.id),
                                 _class = 'attendance_select',
                                 _name = 'attendance_%i_%i' % (student.id, subject.id)
                             )
@@ -71,3 +75,8 @@ class AttendanceRenderer:
             )
         , _class='table')
         return DIV(H2(classroom.name), table)
+    
+    def get_selected_value(self, attendance_list: list, student_id: int, subject_id: int):
+        ''' Asign the default value to a select based in attendance status '''
+        return (AttendanceEnum.ATTENDED.value if 'attendance_%i_%i_True' % (student_id, subject_id) in attendance_list else
+                AttendanceEnum.NOT_ATTENDED.value if 'attendance_%i_%i_False' % (student_id, subject_id) in attendance_list else None)
