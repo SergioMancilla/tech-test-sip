@@ -26,11 +26,11 @@ export class FormController {
 
    static manageSentService (formDTO: { [key: string]: string }) {
       FormRepository.registerStudent(formDTO)
-      .then(success => {
-         if (success) {
-            FormRenderer.showsStatusInfo(true, 'Student saved successfully')
+      .then(response => {
+         if (response.success) {
+            FormRenderer.showsStatusInfo(true, response.msg)
          } else {
-            FormRenderer.showsStatusInfo(false, 'The server refused the data')
+            FormRenderer.showsStatusInfo(false, response.msg)
          }
       })
       .catch(error => {
