@@ -2,18 +2,51 @@
 
 {{ block head }}
 <title>Attendance</title>
-<link rel="stylesheet" href="{{ =URL('static', 'css/grid.css') }}">
+<link rel="stylesheet" href="{{ =URL('static', 'css/tables.css') }}">
 {{include 'web2py_ajax.html'}}
 {{ end head }}
 
-<section class="grid-section">
-    <h1 class="grid-title">Check students attendance</h1>
-    <div class="grid-container">
+<section class="tables-section">
+    <h1 class="tables-title">Check students attendance</h1>
+    <div class="tables-container">
         {{ =attendance_component }}
     </div>
 </section>
 
-
 {{ block paje_js }}
+<script>
+    const attencande_selects = document.querySelectorAll('.attendance_select')
 
+    attencande_selects.forEach(select => {
+        select.addEventListener('change', () => {
+            const [student_id, subject_id] = decodeName(select.name)
+            changeAttendance(student_id, subject_id, select.value)
+        })
+    })
+
+    function decodeName (name) {
+        const parts = name.split('_')
+        const student_id = parts[1]
+        const subject_id = parts[2]
+        return [student_id, subject_id]
+    }
+
+    function changeAttendance(student_id, subject_id, value) {
+        const requestObject = {
+            student_id,
+            subject_id,
+            attendance: value
+        }
+
+        jQuery.post(
+            "{{ =URL('attendance', 'change_attendance_student') }}",
+            JSON.stringify(requestObject),
+            (response) => {
+                console.log(response)
+            }
+        ).fail(function(xhr, status, error) {
+            console.error('There was an error in the request:', error);
+        })
+    }
+</script>
 {{ end paje_js }}

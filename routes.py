@@ -7,6 +7,4 @@ routes_in = (
     ('/sip_students/api/students/register', '/sip_students/controllers/students/register_student'),
 )
 
-routes_out = (
-    ('/sip_students/api/students/register', '/sip_students/controllers/students/register_student'),
-)
+routes_out = [(r'/*', None)]

@@ -18,3 +18,13 @@ class SubjectRepository(BaseRepository):
     def get_model(self):
         ''' Return the table structure for SQLForm or other purposes '''
         return self.table
+    
+    def get_db_object(self):
+        ''' Return database instance for subjects '''
+        return self.db[self.__tablename__]
+    
+    def get_all_subjects(self):
+        ''' Fetch all classrooms '''
+        table = self.get_db_object()
+        registers = self.db(table).select()
+        return registers
