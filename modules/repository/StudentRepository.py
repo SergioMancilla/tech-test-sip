@@ -33,19 +33,29 @@ class StudentRepository(BaseRepository):
         ''' Return the table structure '''
         return self.table
 
-    def save(self, student: Student) -> None:
+    def save(self, student: Student) -> dict:
         ''' Store a student in BD '''
 
+        # Check if a student with the same id_number already exists
+        existing_student = self.db(self.db[self.__tablename__].id_number == student.id_number).select().first()
+
+        # If a student with the same id_number exists, raise an exception or handle the error as needed
+        if existing_student:
+            return {'error': 'Duplicated Id number'}
+
+        # If no student with the same id_number exists, proceed with insertion
         classroom_id = student.classroom.id if student.classroom else None
 
         self.db[self.__tablename__].insert(
-            name = student.name,
-            last_name = student.last_name,
-            birth_date = student.birth_date,
-            id_number = student.id_number,
-            phone = student.phone,
-            classroom_id = classroom_id
+            name=student.name,
+            last_name=student.last_name,
+            birth_date=student.birth_date,
+            id_number=student.id_number,
+            phone=student.phone,
+            classroom_id=classroom_id
         )
+
+        return {'success': 'Student saved successfully'}
 
     def get_db_object(self):
         ''' Return database instance for classrooms '''
@@ -58,4 +68,18 @@ class StudentRepository(BaseRepository):
         query = students_table.classroom_id == classroom_id
         students = self.db(query).select()
         return students
+    
+    def add_student_to_classroom(self, student_id: int, classroom_id: int) -> dict:
+        ''' Add a student to a classroom '''
+
+        student_row = self.db(self.table.id == student_id).select().first()
+
+        if not student_row:
+            return {'error': 'Student not found'}
+        
+        student_row.update_record(classroom_id=classroom_id)
+
+        return {'success': 'Student added to classroom successfully'}
+        
+
         

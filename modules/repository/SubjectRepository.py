@@ -1,6 +1,7 @@
 from gluon.dal import Field
 
 from applications.sip_students.modules.repository.BaseRepository import BaseRepository
+from applications.sip_students.modules.models.Subject import Subject
 
 class SubjectRepository(BaseRepository):
 
@@ -28,3 +29,11 @@ class SubjectRepository(BaseRepository):
         table = self.get_db_object()
         registers = self.db(table).select()
         return registers
+    
+    def save_subject(self, subject: Subject) -> None:
+        ''' Store a subject in BD '''
+
+        self.db[self.__tablename__].insert(
+            name = subject.name,
+            description = subject.description
+        )

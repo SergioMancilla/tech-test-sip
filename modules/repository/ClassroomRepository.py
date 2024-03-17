@@ -33,4 +33,12 @@ class ClassroomRepository(BaseRepository):
         registers = self.db(table).select()
         return registers
 
+    def save_classroom(self, classroom: Classroom) -> None:
+        ''' Store a classroom in BD '''
+
+        self.db[self.__tablename__].insert(
+            name = classroom.name,
+            description = classroom.description,
+            monitor = classroom.monitor,
+        )
 

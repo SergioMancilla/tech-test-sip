@@ -19,12 +19,21 @@ depends_on: Union[str, Sequence[str], None] = None
 
 
 def upgrade() -> None:
-    op.create_table(
+    table = op.create_table(
         'classrooms',
         sa.Column('id', sa.Integer, primary_key=True),
         sa.Column('name', sa.String(50), nullable=False),
         sa.Column('description', sa.String(50)),
         sa.Column('monitor', sa.String(50)),
+    )
+
+    op.bulk_insert(
+        table,
+        [
+            {'name': '43B', 'description': 'Classroom in block B', 'monitor': 'Juan Muñoz'},
+            {'name': '51K', 'description': 'Classroom in block K', 'monitor': 'Alberto Linero'},
+            {'name': '14F', 'description': 'Classroom in block F', 'monitor': 'Pedro Escalante'}
+        ]
     )
 
 def downgrade() -> None:

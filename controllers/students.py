@@ -35,8 +35,11 @@ def save_student():
         })
 
         student_repositoty = StudentRepository()
-        student_repositoty.save(student)
+        op_status = student_repositoty.save(student)
+
+        if('error' in op_status):
+            return response.json({'status': 'error', 'msg': op_status['error']})
         
-        return response.json({'status': 'success', 'msg': 'The student has been saved successfully'})
+        return response.json({'status': 'success', 'msg': 'Student saved successfully'})
     except TypeError:
         return response.json({'status': 'error', 'msg': 'The data provided is not in the correct format'})

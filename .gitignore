@@ -5,3 +5,5 @@ sessions/*
 
 errors/*
 databases/*
+
+__pycache__/
