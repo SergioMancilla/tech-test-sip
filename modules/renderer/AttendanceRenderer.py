@@ -6,6 +6,7 @@ from pydal.objects import Row
 from applications.sip_students.modules.repository.ClassroomRepository import ClassroomRepository
 from applications.sip_students.modules.repository.StudentRepository import StudentRepository
 from applications.sip_students.modules.repository.SubjectRepository import SubjectRepository
+from applications.sip_students.modules.repository.AttendanceRepository import AttendanceRepository
 from applications.sip_students.modules.utils.attendance_enum import AttendanceEnum
 
 class AttendanceRenderer:
@@ -15,6 +16,8 @@ class AttendanceRenderer:
         self.classroom_repository = ClassroomRepository()
         self.student_repository = StudentRepository()
         self.subject_repository = SubjectRepository()
+        # Variable for render the current value options
+        self.current_attendance = AttendanceRepository()
 
     def render_attendance_component(self):
         ''' Return the render component for showing the students attendance '''

@@ -1,5 +1,3 @@
-from typing import List
-
 from gluon.dal import Field
 
 from applications.sip_students.modules.models.Student import Student

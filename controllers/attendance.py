@@ -6,7 +6,9 @@ from applications.sip_students.modules.utils.attendance_enum import AttendanceEn
 
 def index():
     attendance_renderer = AttendanceRenderer()
+
     attendance = attendance_renderer.render_attendance_component()
+
     return {'message': "hello from students.py", 'attendance_component': attendance}
 
 def change_attendance_student():
