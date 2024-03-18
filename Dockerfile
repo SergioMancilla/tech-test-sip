@@ -1,7 +1,7 @@
 FROM python:3.12.2
 
 RUN wget https://mdipierro.pythonanywhere.com/examples/static/web2py_src.zip && \
-    unzip web2py_src.zip && \
+    unzip web2py_src.zip -d /opt && \
     rm web2py_src.zip
 
 RUN apt-get update && \
@@ -9,10 +9,12 @@ RUN apt-get update && \
     npm install -g n && \
     n stable
 
-COPY . /web2py/applications/sip_students
-RUN cd /web2py/applications/sip_students
+RUN apt-get install tree
 
-WORKDIR /web2py/applications/sip_students
+COPY . /opt/web2py/applications/sip_students
+RUN cd opt/web2py/applications/sip_students
+
+WORKDIR /opt/web2py/applications/sip_students
 
 RUN python -m venv sip_students_env
 ENV VIRTUAL_ENV=sip_students_env
@@ -23,15 +25,15 @@ RUN . sip_students_env/Scripts/activate
 RUN pip install -r requirements.txt
 RUN npm install
 
-# RUN apt-get install -y postgresql-client
+RUN apt-get install -y postgresql-client
 # RUN service postgresql start
 # RUN psql -U postgres -c 'CREATE DATABASE school'
+RUN psql -h postgres -U postgres
 
 # RUN alembic upgrade head
 
 # Expón el puerto 8000
 EXPOSE 8000
 
-WORKDIR /
 # Ejecuta Web2py
-CMD python /web2py/web2py.py -i 0.0.0.0 -p 8000 -a '123456'
+CMD python /opt/web2py/web2py.py -i 0.0.0.0 -p 8000 -a '123456'

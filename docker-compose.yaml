@@ -2,6 +2,7 @@ version: "3.9"
 services:
   sip_students:
     build: .
+    restart: always
     ports:
       - "8000:8000"
     links:
@@ -12,12 +13,17 @@ services:
       - my_network
   postgres:
     image: postgres:16
+    restart: always
     ports:
       - "5432:5432"
     environment:
       - POSTGRES_PASSWORD=123456
+      - POSTGRES_USER=initexample
+      - POSTGRES_HOST=postgres
+      - POSTGRES_DB=school
     networks:
       - my_network
 
 networks:
   my_network:
+    driver: bridge
