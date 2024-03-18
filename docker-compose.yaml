@@ -1,0 +1,23 @@
+version: "3.9"
+services:
+  sip_students:
+    build: .
+    ports:
+      - "8000:8000"
+    links:
+      - postgres
+    depends_on:
+      - postgres
+    networks:
+      - my_network
+  postgres:
+    image: postgres:16
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=123456
+    networks:
+      - my_network
+
+networks:
+  my_network:
